@@ -1,0 +1,21 @@
+CoED:
+  perturb_seq: 
+    num_layers: 4          
+    hidden_dimension: 32
+    learning_rate: 0.001
+    theta_learning_rate: 0.0005
+    layer_wise_theta: False
+    alpha: 0.5
+    self_feature_transform: False
+    patience: 30
+
+  power_grid: 
+    num_layers: 3         
+    hidden_dimension: 32  
+    learning_rate: 0.001
+    theta_learning_rate: 0.0005
+    layer_wise_theta: True
+    alpha: 0.5
+    jumping_knowledge: None
+    self_feature_transform: False
+    patience: 50
