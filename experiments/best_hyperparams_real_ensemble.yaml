@@ -9,6 +9,16 @@ CoED:
     self_feature_transform: False
     patience: 30
 
+  web_traffic:
+    num_layers: 2
+    hidden_dimension: 16
+    learning_rate: 0.005
+    theta_learning_rate: 0.01
+    layer_wise_theta: False
+    alpha: 0.5
+    self_feature_transform: True
+    patience: 50
+
   power_grid: 
     num_layers: 3         
     hidden_dimension: 32  

@@ -13,6 +13,15 @@ from .graph_ensemble_dataset import GraphEnsembleDataset
 from .opf import OPFDataset
 from .electrostatic_encoding import get_electrostatic_function_encoding
 
+try:
+    import jax
+    import jax.numpy as jnp
+    from torch_geometric_temporal.dataset import WikiMathsDatasetLoader
+    from torch_geometric_temporal.signal import temporal_signal_split
+    JAX_AVAILABLE = True
+except ImportError:
+    JAX_AVAILABLE = False
+
 
 ROOT_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'datasets')
 DEVICE = torch.device('cpu')
@@ -260,7 +269,24 @@ def get_graph_ensemble_dataset(name, root_dir=ROOT_DIR, device=DEVICE, undirecte
         return train_loader, val_loader, test_loader, info  
 
     elif name in ["web_traffic"]:
-        pass
+        if JAX_AVAILABLE:
+            loader = WikiMathsDatasetLoader()
+            dataset = loader.get_dataset(lags=8) 
+            _train_dataset, _test_dataset = temporal_signal_split(dataset, train_ratio=0.9)
+            
+            edge_index = jnp.array(next(iter(_train_dataset)).edge_index)
+
+            train_dataset_jax = (
+                jnp.stack([snapshot.x.numpy() for snapshot in _train_dataset]),
+                jnp.stack([snapshot.y.numpy() for snapshot in _train_dataset]),
+            )
+            test_dataset_jax = (
+                jnp.stack([snapshot.x.numpy() for snapshot in _test_dataset]),
+                jnp.stack([snapshot.y.numpy() for snapshot in _test_dataset]),
+            )
+            return train_dataset_jax, test_dataset_jax, edge_index
+        else:
+            pass
         
     elif name in ["power_grid"]:
         data_path = os.path.join(root_dir, 'OPF')        
@@ -314,4 +340,4 @@ def get_graph_ensemble_dataset(name, root_dir=ROOT_DIR, device=DEVICE, undirecte
         }
         opf_metadata = dataset[0].metadata()
 
-    return train_loader, val_loader, test_loader, info, opf_metadata   
+        return train_loader, val_loader, test_loader, info, opf_metadata   

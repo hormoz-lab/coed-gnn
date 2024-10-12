@@ -154,7 +154,5 @@ def run(args):
 
 
 if __name__ == "__main__":
-    print(vars(args))
-    args = use_best_hyperparams(args, args.dataset, args.model, "real_ensemble") if args.use_best_hyperparams else args
-    print(vars(args))
+    args = use_best_hyperparams(args, "perturb_seq", args.model, "real_ensemble") if args.use_best_hyperparams else args
     run(args)
