@@ -2,7 +2,7 @@
 
 ![alt text](assets/graph_ensemble_training.png)
 
-This repository contains the code required to reproduce the experimental results for CoED-GNN architecture described in the paper ["Improving Graph Neural Networks by Learning Continuous Edge Directions"](#).
+This repository contains the code required to reproduce the experimental results for CoED-GNN architecture described in the paper ["Improving Graph Neural Networks by Learning Continuous Edge Directions"](http://arxiv.org/abs/2410.14109).
 
 
 ## Overview
