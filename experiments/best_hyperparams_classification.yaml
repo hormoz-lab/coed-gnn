@@ -68,16 +68,3 @@ CoED:
     self_feature_transform: False
     remove_existing_self_loop: False
     patience: 200        
-
-
-# GAT:
-#   learning_rate: 0.0005
-#   weight_decay: 0.00005
-#   dropout_rate: 0.6
-#   epochs: 200
-#   batch_size: 32
-#   layers: 3           # Number of attention layers in GAT
-#   hidden_units: 256    # Number of hidden units per layer
-#   heads: 8            # Number of attention heads
-#   alpha: 0.2          # Slope of LeakyReLU
-#   concat: true  
